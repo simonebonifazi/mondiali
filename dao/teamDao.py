@@ -20,3 +20,19 @@ class TeamDao:
         MySql.closeConnection()
 
         return data
+
+    @classmethod
+    def getTeamWithMostPlayerConvocatedPerYear(cls):
+        MySql.openConnection()
+        MySql.query(
+            "select count(*) as numeroConvocazioni, p.anno, p.nazione \
+            from partecipazione p\
+            group by p.nazione, p.anno\
+            having count(*) >= any(select count(*)\
+                                   from partecipazione p\
+                                   where anno=p.anno\
+                                   group by nazione) ")
+        data = MySql.getResults()
+        MySql.closeConnection()
+
+        return data
