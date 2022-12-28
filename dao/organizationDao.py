@@ -1,4 +1,5 @@
 from dao.utility.db import MySql
+from dto.Organization import Organization
 
 
 class OrganizationDao:
@@ -7,4 +8,8 @@ class OrganizationDao:
         MySql.openConnection()
         MySql.query("select * from organizzazione")
         data = MySql.getResults()
-        return data
+        organizations = []
+        for element in data:
+            organizations.append(Organization(
+                element[0], element[1]))
+        return organizations

@@ -1,4 +1,4 @@
-class Employee:
+class Organization:
     def __init__(self, anno, nazione):
         self.anno = anno
         self.nazione = nazione
