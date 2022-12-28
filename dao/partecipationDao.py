@@ -11,5 +11,5 @@ class PartecipationDao:
         partecipation = []
         for element in data:
             partecipation.append(Partecipation(
-                element[0], element[1], element[2], element[3]))
+                element[0], element[1], element[2], element[3], element[4]))
         return partecipation
