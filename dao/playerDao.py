@@ -1,4 +1,5 @@
 from dao.utility.db import MySql
+from dto.Player import Player
 
 
 class PlayerDao:
@@ -7,14 +8,19 @@ class PlayerDao:
         MySql.openConnection()
         MySql.query("select * from giocatore")
         data = MySql.getResults()
-        return data
+        players = []
+        for element in data:
+            players.append(Player(
+                element[0], element[1]))
+        return players
 
     @classmethod
     def getPlayerByID(cls, id):
         MySql.openConnection()
         MySql.query(f"select * from giocatore where ID = {id}")
         data = MySql.getResults()
-        return data
+        player = Player(data[0][0], data[0][1])
+        return player
 
     @classmethod
     def getAllPlayerPerYear(cls, year):

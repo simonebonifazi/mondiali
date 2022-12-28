@@ -1,4 +1,5 @@
 from dao.utility.db import MySql
+from dto.Team import Team
 
 
 class TeamDao:
@@ -8,8 +9,12 @@ class TeamDao:
         MySql.openConnection()
         MySql.query("SELECT * FROM squadra")
         data = MySql.getResults()
+        results = []
+        for element in data:
+            results.append(Team(
+                element[0], element[1], element[2], element[3]))
         MySql.closeConnection()
-        return data
+        return results
 
     @classmethod
     def getTeamByTopThreePlacement(cls):
@@ -17,9 +22,13 @@ class TeamDao:
         MySql.query(
             "SELECT * FROM mondiali.squadra where PosizioneInClassifica <= 3")
         data = MySql.getResults()
+        results = []
+        for element in data:
+            results.append(Team(
+                element[0], element[1], element[2], element[3]))
         MySql.closeConnection()
 
-        return data
+        return results
 
     @classmethod
     def getTeamWithMostPlayerConvocatedPerYear(cls):
@@ -34,7 +43,6 @@ class TeamDao:
                                    group by nazione) ")
         data = MySql.getResults()
         MySql.closeConnection()
-
         return data
 
     @classmethod
