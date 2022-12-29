@@ -49,6 +49,6 @@ class TeamDao:
     def getAllNationWhoNeverWinWorldCupAtHomeEdition(cls):
         MySql.openConnection()
         MySql.query(
-            "select o.nazione from organizzazione o  inner join squadra s on o.anno  where PosizioneInClassifica = 1 and o.nazione <> s.nazione")
+            "select o.nazione from organizzazione o  inner join squadra s on o.anno  where PosizioneInClassifica <> 1 and o.nazione = s.nazione")
         data = MySql.getResults()
         return data
